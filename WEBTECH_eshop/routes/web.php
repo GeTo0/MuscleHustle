@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,8 +20,14 @@ Route::get('/catalog', function () {
 })->name('catalog');
 
 Route::get('/shopping_cart', function () {
-    return view('shopping_cart');
+    // Fetch cart items from the database
+    $cartItems = App\Models\Cart::all(); // Adjust namespace and model name as per your project structure
+
+    // Pass cart items to the view
+    return view('shopping_cart', ['cartItems' => $cartItems]);
 })->name('shopping_cart');
+
+Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add_to_cart');
 
 Route::get('/edit_product', function () {
     return view('edit_product');
