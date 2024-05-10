@@ -95,7 +95,12 @@
 
 <main>
     <h1 class="title">MUSCLE HUSTLE</h1>
-    <a href="{{ route('catalog') }}" class="catalog-link">
+    
+    @if(Auth::user() && Auth::user()->permissions === 'ADMIN')
+        <a href="{{ route('admin_page') }}" class="catalog-link">
+    @else
+        <a href="{{ route('catalog') }}" class="catalog-link">
+    @endif
         <div class="catalog-box">
             <h2 class="text-xl font-semibold text-black">CATALOG</h2>
         </div>
