@@ -15,13 +15,12 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id')->nullable;
-            $table->unsignedBigInteger('payment_id')->nullable;
+            $table->integer('quantity')->default(1);
             $table->timestamps();
     
             // Define foreign key constraints
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('payment_id')->references('id')->on('payment')->onDelete('cascade');
         });
     }
 

@@ -24,8 +24,10 @@
 <p>Price: ${{ $product->price }}</p>
 <p>Description: {{ $product->description }}</p>
 
-
-        <button onclick="addToCart()">Add to Cart</button>
+<form action="{{ route('add_to_cart', ['productId' => $product->id]) }}" method="post">
+    @csrf
+    <button type="submit">Add to Cart</button>
+</form>
     </div>
 
 </body>

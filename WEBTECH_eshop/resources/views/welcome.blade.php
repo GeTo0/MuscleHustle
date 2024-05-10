@@ -5,58 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel</title>
     <style>
-        a {
-            text-decoration: none;
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Add your other CSS styles here */
-        .main-content {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb; /* Light gray background */
+        }
+
+        /* Header styles */
+        header {
+            background-color: #ffffff; /* White background */
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Main styles */
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Adjust as needed for vertical centering */
+        }
+
+        /* Footer styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px;
             text-align: center;
-            margin-top: 20vh; /* Adjust this value as needed for vertical centering */
+            width: 100%;
+            background-color: #ffffff; /* White background */
         }
 
-        /* Add other styles as needed */
+        /* Additional styles for CATALOG link */
+        .catalog-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: #000000; /* Black color */
+            margin-top: 20px; /* Add margin between title and CATALOG */
+        }
+
+        /* Box styles for CATALOG */
+        .catalog-box {
+            padding: 20px;
+            background-color: #ffffff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        /* Styles for top right corner links */
+        .top-right-links {
+            display: flex;
+        }
+
+        .top-right-links a {
+            margin-right: 30px; /* Add more space between links */
+            text-decoration: none;
+            color: #000000; /* Black color */
+        }
+
+        /* Title styles */
+        .title {
+            font-size: 6rem; /* Adjust the font size as needed */
+            font-weight: bold;
+            color: #000000; /* Black color */
+            margin-bottom: 150px; /* Add margin below the title */
+        }
     </style>
 </head>
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-<header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-    @if (Route::has('login'))
-        <nav class="-mx-3 flex flex-1 justify-end">
-            @auth
-                <a href="{{ url('/dashboard') }}"
-                   class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                    Dashboard
-                </a>
-            @else
-                <a href="{{ route('login') }}"
-                   class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                    Log in
-                </a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}"
-                       class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                        Register
-                    </a>
-                @endif
-            @endauth
-        </nav>
-    @endif
+<body>
+<header>
+    <div class="top-right-links">
+        <a href="{{ route('login') }}">Log in</a>
+        <a href="{{ route('register') }}">Register</a>
+    </div>
 </header>
 
-<main class="mt-6 flex justify-center">
-    <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
-        <a href="{{ route('catalog') }}" class="hover:text-[#FF2D20]">
-            <div class="relative flex justify-center items-center p-6 bg-white rounded-lg shadow-[0px_14px_34px_0px_rgba(0_2c_0_2c_0_2c_0_08)] hover:shadow-[0px_4px_34px_rgba(0_2c_0_2c_0_2c_0_25)] dark:bg-zinc-900 dark:hover:shadow-[0px_4px_34px_rgba(0_2c_0_2c_0_2c_0_25)]">
-                <h2 class="text-xl font-semibold text-black dark:text-white">CATALOG</h2>
-            </div>
-        </a>
-    </div>
+<main>
+    <h1 class="title">MUSCLE HUSTLE</h1>
+    <a href="{{ route('catalog') }}" class="catalog-link">
+        <div class="catalog-box">
+            <h2 class="text-xl font-semibold text-black">CATALOG</h2>
+        </div>
+    </a>
 </main>
 
-<footer class="py-16 text-center text-sm text-black dark:text-white/70">
-    Created by: Sebastián Lener, Dominik Zaťovič
+<footer>
+    <p>Created by: Sebastián Lener, Dominik Zaťovič</p>
 </footer>
-
 </body>
 </html>

@@ -14,9 +14,16 @@
 </div>
 <div class="shopping-cart">
   <h2>Shopping Cart</h2>
-  <div id="cartItems">
-    <!-- Cart items will be displayed here -->
-  </div>
+<!-- Cart items will be displayed here -->
+<div id="cartItems">
+  @foreach($cartItems as $item)
+      <div class="cart-item">
+          <p>{{ $item->name }}</p> <!-- Assuming your cart items have a 'name' column -->
+          <p>{{ $item->price }}</p> <!-- Assuming your cart items have a 'price' column -->
+          <!-- Add more details here as needed -->
+      </div>
+  @endforeach
+</div>
   <div class="total-price">
     Total price: <span id="totalPrice"></span>
   </div>
