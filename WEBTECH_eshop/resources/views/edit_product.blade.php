@@ -12,24 +12,44 @@
     <div class="topnav">
         <a href="{{ route('homepage') }}"><img src="{{ asset('icons/account_icon.png') }}" alt="Icon 1"></a>
         <a href="{{ route('catalog') }}"><img src="{{ asset('icons/home_icon.png') }}" alt="Icon 2"></a>
-        <span id="cartCounter"></span>
     </div>
-
+    
     <div class="product-info">
         <h2>Edit Product Details</h2>
-        <div class="input-group">
-            <label for="productName">Product Name:</label>
-            <input type="text" id="productName" name="productName" class="input-admin" required>
+        <form action="{{ route('update_product', $product->id) }}" method="POST">
+            @csrf <!-- CSRF Protection -->
+
+            <div class="input-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" class="input-admin" value="{{ $product->name }}" required>
+            </div>
+            <div class="input-group">
+                <label for="productPrice">Product Price:</label>
+                <input type="number" id="productPrice" name="productPrice" class="input-admin" value="{{ $product->price }}" min="0" step="0.01" required>
+            </div>
+            <div class="input-container">
+                <label class="label-left" for="productSale">Product Sale:</label>
+                <input type="number" id="productSale" name="productSale" min="0" step="0.01" class="input-admin" value="{{ $product->sale_percentage }}" required>
+            </div>
+            <div class="input-container">
+                <label class="label-left" for="productImage">Product Image:</label>
+                <input type="text" id="productImage" name="productImage" class="input-admin" value="{{ $product->image_path }}" required>
+            </div>
+            <div class="input-container">
+                <label class="label-left" for="productCategory">Product Category:</label>
+                <input type="text" id="productCategory" name="productCategory" class="input-admin" value="{{ $product->category }}" required>
+            </div>
+            <div class="input-container">
+              <label class="label-left" for="productName">Product Description:</label>
+              <input type="text" id="productDescription" name="productDescription" class="input-admin" value="{{ $product->description }}" required>
+          </div>
+          <div class="input-container">
+            <label class="label-left" for="productName">Product Availability:</label>
+            <input type="number" id="productAvailability" name="productAvailability" class="input-admin" value="{{ $product->availability }}" required>
         </div>
-        <div class="input-group">
-            <label for="productDescription">Product Description:</label>
-            <textarea id="productDescription" name="productDescription" class="input-admin" rows="4" required></textarea>
-        </div>
-        <div class="input-group">
-            <label for="productImage">Product Image URL:</label>
-            <input type="text" id="productImage" name="productImage" class="input-admin" required>
-        </div>
-        <button onclick="editProduct()">Edit</button>
+
+            <button type="submit">Save Changes</button>
+        </form>
     </div>
 
 </body>

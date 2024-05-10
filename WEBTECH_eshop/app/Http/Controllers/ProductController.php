@@ -29,6 +29,49 @@ class ProductController extends Controller
     return view('product', compact('product'));
 }
 
+public function show_edit_products($productName)
+{
+    // Retrieve the product details based on the provided name
+    // You can fetch the product from the database or any other source
+    $product = Product::where('name', $productName)->first();
+
+    // Check if the product exists
+    if (!$product) {
+        abort(404); // Product not found, return 404 error
+    }
+
+    // Pass the product data to the product detail view
+    return view('edit_product', compact('product'));
+}
+
+public function update_product(Request $request, Product $product)
+{
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'productName' => 'required|string|max:255',
+        'productPrice' => 'required|numeric|min:0',
+        'productSale' => 'required|numeric|max:255',
+        'productImage' => 'required|string',
+        'productCategory' => 'required|string|max:255',
+        'productDescription' => 'required|string|min:0',
+        'productAvailability' => 'required|numeric',
+        // Add validation rules for other fields like description, title, etc.
+    ]);
+
+    // Update the product details
+    $product->name = $request->productName;
+    $product->price = $request->productPrice;
+    $product->sale_percentage = $request->productSale;
+    $product->image_path = $request->productImage;
+    $product->description = $request->productDescription;
+    $product->category = $request->productCategory;
+    $product->availability = $request->productAvailability;
+    $product->save();
+    #$product->update($validatedData);
+
+    return redirect('admin_main');
+}
+
     
     public function getAllProducts(): JsonResponse
     {

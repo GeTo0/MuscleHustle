@@ -4,7 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\AdminMainController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,19 +29,17 @@ Route::get('/shopping_cart', function () {
 
 Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add_to_cart');
 
-Route::get('/edit_product', function () {
-    return view('edit_product');
-})->name('edit_product');
+Route::post('/admin_main', [AdminMainController::class, 'store'])->name('admin_page.store');
 
 Route::get('/admin_main', function () {
     return view('admin_main');
 })->name('admin_page');
 
- Route::get('/product', function () {
-     return view('product');
- })->name('product');
+Route::get('/product/{productName}', [ProductController::class, 'show'])->name('product.show');
 
- Route::get('/product/{productName}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/edit_product/{productName}', [ProductController::class, 'show_edit_products'])->name('edit_product.show');
+
+Route::post('/edit_product/{productName}', [ProductController::class, 'update_product'])->name('update_product');
 
 
 Route::get('/catalog/products', [ProductController::class, 'getAllProducts']);
