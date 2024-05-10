@@ -42,7 +42,7 @@
         <!-- Street address -->
         <div class="mt-4">
             <x-input-label for="street_address" :value="__('Street Address')" />
-            <x-text-input id="street_address" class="block mt-1 w-full" type="street_address" name="street_address" :value="old('street_address')" required autocomplete="username" />
+            <x-text-input id="street_address" class="block mt-1 w-full" type="street_address" name="street_address" :value="old('street_address')" />
             <x-input-error :messages="$errors->get('street_address')" class="mt-2" />
         </div>
 
