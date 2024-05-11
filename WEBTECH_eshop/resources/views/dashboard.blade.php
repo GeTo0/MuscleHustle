@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __("You're logged in!") }}
-        </h2>
+    @if(Auth::user() && Auth::user()->permissions === 'ADMIN')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __("You're logged in as ADMIN!") }}
+    </h2>
+    @else
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __("You're logged in!") }}
+    </h2>
+    @endif
     </x-slot>
 
     <div class="h-screen flex justify-center items-center flex-col">
