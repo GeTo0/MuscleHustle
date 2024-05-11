@@ -30,13 +30,16 @@ function createFilteredProducts() {
     const maxPriceValue = parseFloat(maxPrice.textContent.slice(1)); // Extract the maximum price value
     const saleCheckbox = document.getElementById('ch1'); // Get the sale checkbox element
     const selectedCategory = categoryFilter.value; // Get the selected category from the dropdown menu
+    const searchFilter = document.getElementById('search-filter').value.trim().toLowerCase(); // Get the search filter input value
 
     productsData.forEach((product) => {
         // Check if the sale checkbox is checked and if the product has a sale greater than 0
         // Check if the product's category matches the selected category or if no category is selected
+        // Check if the product's name includes the search filter string
         if ((!saleCheckbox.checked || (saleCheckbox.checked && product['sale_percentage'] > 0)) &&
             product.price >= minPriceValue && product.price <= maxPriceValue &&
-            (selectedCategory === '' || product.category === selectedCategory)) {
+            (selectedCategory === '' || product.category === selectedCategory) &&
+            (searchFilter === '' || product.name.toLowerCase().includes(searchFilter))) {
             filteredProducts.push(product);
         }
     });
@@ -165,6 +168,10 @@ function fetchCategories() {
         .catch(error => {
             console.error('Error fetching categories:', error);
         });
+}
+function filterByName() {
+    currentPage = 1; // Reset the current page to 1 when applying a new filter
+    generateProductItems(); // Regenerate product items after applying the filter
 }
 
 window.onload = function () {

@@ -21,9 +21,9 @@
   <div class="catalog">
     <h2>Product Catalog</h2>
     <div class="body">
-      <button onclick="generateProductItems()">
+      <button onclick="generateProductItems(); filterByName()">
         <img src="{{ asset('icons/filter.png') }}" alt="Filter Icon" class="negative-img" id="filter-button">
-      </button>
+    </button>
       <div class="tabs">
         <input checked="" value="Price" name="filterOption" id="pr" type="radio" class="input" />
         <label for="pr" class="label">Price</label>
@@ -36,6 +36,10 @@
         <option value="">All</option>
         <!-- Categories will be dynamically populated here -->
     </select>
+    <div class="search-filter">
+      <label for="search-filter">Search by Name:</label>
+      <input type="text" id="search-filter">
+  </div>
 </div>  
       <div id="slider-container">
         <label for="price-slider">Price Interval:</label>

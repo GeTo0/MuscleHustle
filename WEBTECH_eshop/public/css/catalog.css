@@ -358,3 +358,20 @@ button:active {
   height: 80px !important;
 }
 
+.category-filter {
+  margin-bottom: 20px; /* Add margin at the bottom to create space */
+}
+
+.tabs {
+  margin-bottom: 20px; /* Add margin at the bottom to create space */
+}
+
+.button-container {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+}
+
+.button-container button {
+  margin-left: 10px; /* Add margin between the filters and the button */
+}
