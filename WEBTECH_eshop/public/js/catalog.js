@@ -33,13 +33,19 @@ function createFilteredProducts() {
     const searchFilter = document.getElementById('search-filter').value.trim().toLowerCase(); // Get the search filter input value
 
     productsData.forEach((product) => {
+        // Calculate the price to be used for filtering
+        let priceToUse = product.price; // Default to normal price
+        if (product['sale_percentage'] > 0) {
+            // If the product is on sale, calculate the discounted price
+            const discountedPrice = (product.price - (product.price * product['sale_percentage'] / 100));
+            priceToUse = discountedPrice;
+        }
+
         // Check if the sale checkbox is checked and if the product has a sale greater than 0
         // Check if the product's category matches the selected category or if no category is selected
-        // Check if the product's name includes the search filter string
         if ((!saleCheckbox.checked || (saleCheckbox.checked && product['sale_percentage'] > 0)) &&
-            product.price >= minPriceValue && product.price <= maxPriceValue &&
-            (selectedCategory === '' || product.category === selectedCategory) &&
-            (searchFilter === '' || product.name.toLowerCase().includes(searchFilter))) {
+            priceToUse >= minPriceValue && priceToUse <= maxPriceValue &&
+            (selectedCategory === '' || product.category === selectedCategory)) {
             filteredProducts.push(product);
         }
     });
