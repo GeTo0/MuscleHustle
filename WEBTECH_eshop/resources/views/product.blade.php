@@ -20,7 +20,7 @@
     <div class="product-info">
         <!-- resources/views/product.blade.php -->
 <h1>{{ $product->name }}</h1>
-<img id="productImage" src="{{ $product->image }}" alt="{{ $product->name }}" onerror="this.onerror=null; this.src='{{ asset('images/error_image.png') }}';">
+<img id="productImage" src="{{ $product->image_path }}" alt="{{ $product->name }}" onerror="this.onerror=null; this.src='{{ asset('images/error_image.png') }}';">
 @if($product->sale_percentage > 0)
     <!-- Display the original price -->
     <p style="color: black; text-decoration: line-through;">{{ $product->price }}$</p>

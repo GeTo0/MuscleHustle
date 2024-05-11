@@ -119,13 +119,14 @@ function generateProductItems() {
             }
 
             // Include product name and price display in the product item
+            console.log(product);
             productItem.innerHTML += `
-                <a onclick="openProductPage('${product.name}', '${product.image}', ${product.price})">
-                    <img src="${product.image}" onerror="this.src='images/error_image.png'" alt="${product.name}">
+                <a onclick="openProductPage('${product.name}', '${product.image_path}', ${product.price})">
+                    <img src="${product.image_path}" onerror="this.src='images/error_image.png'" alt="${product.name}">
                 </a>
                 <p>${product.name}</p>
                 <p>${priceDisplay}</p>
-                <button onclick="openProductPage('${product.name}', '${product.image}', ${product.price})">Info</button>
+                <button onclick="openProductPage('${product.name}', '${product.image_path}', ${product.price})">Info</button>
             `;
             productsContainer.appendChild(productItem); // Append the product item to the products container
         }
