@@ -86,12 +86,16 @@
     </style>
 </head>
 <body>
-<header>
-    <div class="top-right-links">
-        <a href="{{ route('login') }}">Log in</a>
-        <a href="{{ route('register') }}">Register</a>
-    </div>
-</header>
+    <header>
+        <div class="top-right-links">
+            @guest
+                <a href="{{ route('login') }}">Log in</a>
+                <a href="{{ route('register') }}">Register</a>
+            @else
+                <a href="{{ route('dashboard') }}">PROFILE</a>
+            @endguest
+        </div>
+    </header>
 
 <main>
     <h1 class="title">MUSCLE HUSTLE</h1>
