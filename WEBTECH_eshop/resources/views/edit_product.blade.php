@@ -16,7 +16,7 @@
     
     <div class="product-info">
         <h2>Edit Product Details</h2>
-        <form action="{{ route('update_product', $product->id) }}" method="POST">
+        <form action="{{ route('update_product', $product->name) }}" method="POST">
             @csrf <!-- CSRF Protection -->
 
             <div class="input-group">
@@ -47,8 +47,12 @@
             <label class="label-left" for="productName">Product Availability:</label>
             <input type="number" id="productAvailability" name="productAvailability" class="input-admin" value="{{ $product->availability }}" required>
         </div>
-
             <button type="submit">Save Changes</button>
+        </form>
+        <form action="{{ route('delete_product', $product->name) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete Product</button>
         </form>
     </div>
 

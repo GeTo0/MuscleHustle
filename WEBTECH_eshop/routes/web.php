@@ -41,6 +41,7 @@ Route::get('/edit_product/{productName}', [ProductController::class, 'show_edit_
 
 Route::post('/edit_product/{productName}', [ProductController::class, 'update_product'])->name('update_product');
 
+Route::delete('/edit_product/{productName}', [ProductController::class, 'delete_product'])->name('delete_product');
 
 Route::get('/catalog/products', [ProductController::class, 'getAllProducts']);
 
