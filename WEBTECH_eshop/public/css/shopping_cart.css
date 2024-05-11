@@ -110,3 +110,8 @@ input[type="radio"]+label {
     margin-left: 5px;
     cursor: pointer;
 }
+
+.checkout:hover,
+.clearcart:hover {
+    cursor: pointer;
+}

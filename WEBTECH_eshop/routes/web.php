@@ -51,11 +51,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/shopping_cart', [CartController::class, 'showCart'])->name('shopping_cart');
-
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update_cart');
 
 Route::get('/cart/items', [CartController::class, 'getCartItems']);
+
+//tu som pridal veci
+// In your Laravel routes file (web.php)
+Route::get('/auth/status', 'AuthController@checkAuthStatus');
+
+Route::get('/shopping_cart', [CartController::class, 'showCart'])->name('shopping_cart');
+
+// In your Laravel routes file (web.php)
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+Route::get('/auth/status', [AuthenticatedSessionController::class, 'checkAuthStatus']);
+
+use App\Http\Controllers\OrderController;
+
+Route::post('/add-to-order-history', [OrderController::class, 'addToOrderHistory']);
 
 
 require __DIR__.'/auth.php';

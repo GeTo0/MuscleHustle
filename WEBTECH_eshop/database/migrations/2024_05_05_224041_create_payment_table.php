@@ -18,10 +18,6 @@ return new class extends Migration
 
             $table->bigInteger('card_number')->nullable; //information will be only saved to database if user wants to remember the card for future payments
             $table->integer('CVC')->nullable;
-
-            $table->string('blockchain');
-            $table->string('transaction_id');
-            $table->string('address_sent_from');
             $table->string('address_sent_to');
             $table->timestamps();
     

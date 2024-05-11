@@ -44,4 +44,15 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    // In your AuthController
+    public function checkAuthStatus()
+    {
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            return response()->json(['loggedIn' => true]);
+        } else {
+            return response()->json(['loggedIn' => false]);
+        }
+    }
 }
