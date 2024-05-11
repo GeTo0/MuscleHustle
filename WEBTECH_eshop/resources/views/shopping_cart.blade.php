@@ -69,16 +69,38 @@
     Total price: <span id="totalPrice">{{ $totalPrice }}</span>$
   </div>
 
-  <!-- Payment Form -->
-  <div class="payment-form">
-    <strong>Payment form:</strong><br>
-    <ol>
-      <li><input type="radio" id="crypto-payment" name="payment" value="crypto-payment" checked>
-        <label for="crypto-payment">via Crypto</label></li>
-      <li><input type="radio" id="payment-on-delivery" name="payment" value="payment-on-delivery">
-        <label for="payment-on-delivery">Payment on delivery</label></li>
-    </ol>
+<!-- Payment Form -->
+<div class="payment-form">
+  <strong>Payment form:</strong><br>
+  <ol>
+    <li><input type="radio" id="card-payment" name="payment" value="card-payment">
+      <label for="card-payment">via Card</label></li>
+    <li><input type="radio" id="payment-on-delivery" name="payment" value="payment-on-delivery" checked>
+      <label for="payment-on-delivery">Payment on delivery</label></li>
+  </ol>
+</div>
+
+<!-- Card Details Form (Initially Hidden) -->
+<div class="card-details" style="display: none;">
+  <div>
+    <label for="card-number">Card Number:</label><br>
+    <input type="text" id="card-number" name="card-number">
   </div>
+  <div>
+    <label for="cardholder-name">Cardholder Name:</label><br>
+    <input type="text" id="cardholder-name" name="cardholder-name">
+  </div>
+  <div>
+    <label for="expiry">MM/YY:</label><br>
+    <input type="text" id="expiry" name="expiry">
+  </div>
+  <div>
+    <label for="cvv">CVV:</label><br>
+    <input type="text" id="cvv" name="cvv">
+  </div>
+</div>
+
+
 
   <!-- Shipping -->
   <div class="shipping">
@@ -91,10 +113,18 @@
     </ol>
   </div>
 
+  <!-- Custom Address Form (Initially Hidden) -->
+<div class="custom-address" style="display: none;">
+  <div>
+    <label for="card-number">Address:</label><br>
+    <input type="text" id="card-number" name="card-number">
+  </div>
+</div>
+
+
   <!-- Checkout Button -->
-  <a href="#" class="checkout">Checkout</a>
-  <!-- Clear Cart Button -->
-  <a href="#" class="clearcart" onclick="clearCart()">Clear Cart</a>
+  <a class="checkout" onclick="checkout()">Checkout</a>  <!-- Clear Cart Button -->
+  <a class="clearcart" onclick="clearCart()">Clear Cart</a>
 </div>
 </body>
 <script src="{{ asset('js/shopping_cart.js') }}"></script>

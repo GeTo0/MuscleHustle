@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -61,5 +62,11 @@ Route::get('/auth/status', [AuthenticatedSessionController::class, 'checkAuthSta
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update_cart');
 
 Route::get('/cart/items', [CartController::class, 'getCartItems']);
+
+Route::get('/shopping_cart', [CartController::class, 'showCart'])->name('shopping_cart');
+
+Route::get('/auth/status', [AuthenticatedSessionController::class, 'checkAuthStatus']);
+
+Route::post('/add-to-order-history', [OrderController::class, 'addToOrderHistory']);
 
 require __DIR__.'/auth.php';

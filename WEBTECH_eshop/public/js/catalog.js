@@ -8,6 +8,14 @@ function fetchProducts() {
         });
 }
 
+function fetchCartItems() {
+    return fetch('/cart/items') // Adjust the URL endpoint based on your Laravel routes
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error fetching cart items:', error);
+        });
+}
+
 let productsData; 
 let currentPage = 1;
 const productsPerPage = 6;
@@ -43,9 +51,11 @@ function createFilteredProducts() {
 
         // Check if the sale checkbox is checked and if the product has a sale greater than 0
         // Check if the product's category matches the selected category or if no category is selected
+        // Also, check if the product name contains the search filter string
         if ((!saleCheckbox.checked || (saleCheckbox.checked && product['sale_percentage'] > 0)) &&
             priceToUse >= minPriceValue && priceToUse <= maxPriceValue &&
-            (selectedCategory === '' || product.category === selectedCategory)) {
+            (selectedCategory === '' || product.category === selectedCategory) &&
+            (product.name.toLowerCase().includes(searchFilter))) {
             filteredProducts.push(product);
         }
     });
@@ -165,10 +175,16 @@ categoryFilter.addEventListener('change', () => {
 });
 
 function updateCartCounter() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalQuantity = 0; // Initialize total quantity counter
+    // Iterate through the cartData array and sum up the quantities of all products
+    cartData.forEach(item => {
+        totalQuantity += item.quantity;
+    });
+    // Update the cartCounter with the total quantity
     let cartCounter = document.getElementById('cartCounter');
-    cartCounter.textContent = cart.length; // Update counter with the number of items in the cart
+    cartCounter.textContent = totalQuantity; // Update counter with the total quantity of items in the fetched cartItems
 }
+
 function fetchCategories() {
     return fetch('/catalog/categories')
         .then(response => response.json())
@@ -182,13 +198,15 @@ function filterByName() {
 }
 
 window.onload = function () {
-    fetchProducts()
-        .then(data => {
-            productsData = data;
+    Promise.all([fetchProducts(), fetchCartItems()])
+        .then(([products, cartItems]) => {
+            productsData = products;
+            cartData = cartItems;
             generateProductItems(); // Generate product items with fetched data
-        }) // Fetch products from the backend
+            updateCartCounter(); // Update cart counter
+        })
         .catch(error => {
-            console.error('Error fetching products:', error);
+            console.error('Error fetching products and/or cart items:', error);
         });
         
     fetchCategories()
