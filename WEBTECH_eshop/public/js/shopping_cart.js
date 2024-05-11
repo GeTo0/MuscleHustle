@@ -24,7 +24,44 @@ function clearCart() {
             if (response.ok) {
                 // Cart updated successfully
                 // Reload the page to reflect the changes
-                location.reload();
+                location.reload()
+            } else {
+                // Cart update failed
+                console.log('Failed to update cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            console.log('An error occurred while updating cart');
+        });
+}
+
+function clearCartCheckout() {
+    // Fetch all quantity input fields
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const productQuantities = {};
+
+    // Iterate over each quantity input field
+    quantityInputs.forEach(input => {
+        const productId = input.dataset.productId;
+        const quantity = parseInt(0);
+        productQuantities[productId] = quantity;
+    });
+
+    // Send an AJAX request to update cart quantities
+    fetch('/update-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(productQuantities)
+    })
+        .then(response => {
+            console.log('Response:', response);
+            if (response.ok) {
+                // Cart updated successfully
+                // Reload the page to reflect the changes
             } else {
                 // Cart update failed
                 console.log('Failed to update cart');
@@ -124,17 +161,19 @@ function checkout() {
             .then(() => {
                 // All products added to order history successfully
                 console.log('All products added to order history successfully');
-                // Optionally, you can redirect to a success page or show a success message
+                // Clear the cart after successful checkout
+                clearCartCheckout();
+                // Redirect to the catalog page
+                window.location.href = "/catalog";
             })
             .catch(error => {
                 console.error('Error:', error);
                 // Handle error
             });
         }
-    });
+    
+});
 }
-
-
 
 
 // Function to check authentication status
