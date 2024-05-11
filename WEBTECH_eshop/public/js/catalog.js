@@ -62,7 +62,7 @@ function updatePageCounter(filteredProducts) {
 // Function to sort products by price
 function sortProductsByPrice(filteredProducts) {
     // Sort the filtered products array by price in ascending order
-    filteredProducts.sort((a, b) => a.price - b.price);
+    filteredProducts.sort((a, b) => (a.price-(a.price*a['sale_percentage']/100)) - (b.price-(b.price*b['sale_percentage'])/100));
     return filteredProducts; // Return the sorted array
 }
 
