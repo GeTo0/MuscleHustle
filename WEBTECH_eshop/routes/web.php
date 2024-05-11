@@ -45,6 +45,8 @@ Route::delete('/edit_product/{productName}', [ProductController::class, 'delete_
 
 Route::get('/catalog/products', [ProductController::class, 'getAllProducts']);
 
+Route::get('/catalog/categories', [ProductController::class, 'getAllCategories']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

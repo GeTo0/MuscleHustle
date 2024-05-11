@@ -21,7 +21,18 @@
         <!-- resources/views/product.blade.php -->
 <h1>{{ $product->name }}</h1>
 <img id="productImage" src="{{ $product->image }}" alt="{{ $product->name }}" onerror="this.onerror=null; this.src='{{ asset('images/error_image.png') }}';">
-<p>Price: ${{ $product->price }}</p>
+@if($product->sale_percentage > 0)
+    <!-- Display the original price -->
+    <p style="color: black; text-decoration: line-through;">{{ $product->price }}$</p>
+    <!-- Calculate the sale price and display it -->
+    @php
+    $salePrice = number_format($product->price - ($product->price * $product->sale_percentage / 100), 2);
+    @endphp
+    <p style="color: orange;">Sale: {{ $salePrice }}$</p>
+@else
+    <!-- If no sale percentage, display the regular price -->
+    <p>{{ $product->price }}$</p>
+@endif
 <p>Description: {{ $product->description }}</p>
 
 <form action="{{ route('add_to_cart', ['productId' => $product->id]) }}" method="post">
@@ -32,5 +43,6 @@
 
 </body>
 <script src="{{ asset('js/product.js') }}"></script>
+
 
 </html>

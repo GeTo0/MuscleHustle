@@ -16,6 +16,7 @@ const productsPerPage = 6;
 const priceSlider = document.getElementById('price-slider');
 const minPrice = document.getElementById('min-price');
 const maxPrice = document.getElementById('max-price');
+const categoryFilter = document.getElementById('category-filter'); // Get the category filter dropdown menu
 
 // Function to open product page with additional information
 function openProductPage(productName, productImage, productPrice) {
@@ -28,18 +29,20 @@ function createFilteredProducts() {
     const minPriceValue = parseFloat(minPrice.textContent.slice(1)); // Extract the minimum price value
     const maxPriceValue = parseFloat(maxPrice.textContent.slice(1)); // Extract the maximum price value
     const saleCheckbox = document.getElementById('ch1'); // Get the sale checkbox element
+    const selectedCategory = categoryFilter.value; // Get the selected category from the dropdown menu
 
     productsData.forEach((product) => {
         // Check if the sale checkbox is checked and if the product has a sale greater than 0
+        // Check if the product's category matches the selected category or if no category is selected
         if ((!saleCheckbox.checked || (saleCheckbox.checked && product['sale_percentage'] > 0)) &&
-            product.price >= minPriceValue && product.price <= maxPriceValue) {
+            product.price >= minPriceValue && product.price <= maxPriceValue &&
+            (selectedCategory === '' || product.category === selectedCategory)) {
             filteredProducts.push(product);
         }
     });
 
     return filteredProducts;
 }
-
 
 function updatePageCounter(filteredProducts) {
     const totalPages = Math.max(Math.ceil(filteredProducts.length / productsPerPage),1);
@@ -121,7 +124,6 @@ function generateProductItems() {
     updatePageCounter(filteredProducts); // Update the page counter after generating product items
 }
 
-
 function showPreviousProducts() {
     currentPage = Math.max(currentPage - 1, 1);
     generateProductItems(); // Regenerate product items for the current page
@@ -147,10 +149,22 @@ priceSlider.noUiSlider.on('update', function (values) {
     maxPrice.textContent = '$' + values[1];
 });
 
+// Add an event listener to the category filter dropdown menu to trigger the filtering of products when the selected category changes
+categoryFilter.addEventListener('change', () => {
+    generateProductItems(); // Regenerate product items when the selected category changes
+});
+
 function updateCartCounter() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let cartCounter = document.getElementById('cartCounter');
     cartCounter.textContent = cart.length; // Update counter with the number of items in the cart
+}
+function fetchCategories() {
+    return fetch('/catalog/categories')
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        });
 }
 
 window.onload = function () {
@@ -158,6 +172,26 @@ window.onload = function () {
         .then(data => {
             productsData = data;
             generateProductItems(); // Generate product items with fetched data
-        }); // Fetch products from the backend
+        }) // Fetch products from the backend
+        .catch(error => {
+            console.error('Error fetching products:', error);
+        });
+        
+    fetchCategories()
+        .then(categories => {
+            // Populate the category filter dropdown menu with retrieved categories
+            const categoryFilter = document.getElementById('category-filter');
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            generateProductItems(); // Generate product items after fetching categories
+        }) // Fetch categories from the backend
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        });
+
     updateCartCounter(); // Update cart counter
 };

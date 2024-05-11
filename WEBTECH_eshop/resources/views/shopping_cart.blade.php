@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopping Cart</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/shopping_cart.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <div class="topnav">
@@ -16,16 +17,56 @@
   <h2>Shopping Cart</h2>
 <!-- Cart items will be displayed here -->
 <div id="cartItems">
-  @foreach($cartItems as $item)
-      <div class="cart-item">
-          <p>{{ $item->name }}</p> <!-- Assuming your cart items have a 'name' column -->
-          <p>{{ $item->price }}</p> <!-- Assuming your cart items have a 'price' column -->
-          <!-- Add more details here as needed -->
-      </div>
-  @endforeach
+  <!-- If cart is empty, display a message -->
+  @if(count($cartItems) == 0)
+      <p>Your cart is empty</p>
+  @endif
+
+  @php
+    $totalPrice = 0; // Initialize total price variable
+  @endphp
+
+@foreach($cartItems as $item)
+    <div class="cart-item">
+        <p>{{ $item->name }}</p>
+        <!-- Check if the product has a sale percentage -->
+        @php
+            // Initialize sale price to the regular price by default
+            $salePrice = $item->price;
+        @endphp
+        @if($item->sale_percentage > 0)
+            <!-- Display the original price -->
+            <span style="color: black; text-decoration: line-through;">{{ $item->price }}$</span>
+            <!-- Calculate the sale price and display it -->
+            @php
+                $salePrice = number_format($item->price - ($item->price * $item->sale_percentage / 100), 2);
+            @endphp
+            <p style="color: orange;">Sale: {{ $salePrice }}$</p>
+        @else
+            <!-- If no sale percentage, display the regular price -->
+            <p>{{ $item->price }}$</p>
+        @endif
+        <!-- Input field for quantity adjustment -->
+        <input type="number" class="quantity-input" value="{{ $item->quantity }}" min="1" data-product-id="{{ $item->product_id }}">
+        <!-- Add more details here as needed -->
+    </div>
+    @php
+        // Calculate total price including sale prices
+        $totalPrice += $salePrice * $item->quantity;
+    @endphp
+@endforeach
+
+
+
+<!-- Submit button to update cart -->
+<button id="updateCartBtn" onclick="updateCart()">Update Cart</button>
+
+
+
 </div>
+  <!-- Display total price -->
   <div class="total-price">
-    Total price: <span id="totalPrice"></span>
+    Total price: <span id="totalPrice">{{ $totalPrice }}</span>$
   </div>
 
   <!-- Payment Form -->

@@ -29,7 +29,14 @@
         <label for="pr" class="label">Price</label>
         <input value="Alphabet" name="filterOption" id="alpha" type="radio" class="input" />
         <label for="alpha" class="label">Alphabet</label>
-      </div>      
+      </div>   
+      <div class="category-filter">
+    <label for="category-filter">Filter by Category:</label>
+    <select id="category-filter">
+        <option value="">All</option>
+        <!-- Categories will be dynamically populated here -->
+    </select>
+</div>  
       <div id="slider-container">
         <label for="price-slider">Price Interval:</label>
         <!-- Create an empty div for the slider -->

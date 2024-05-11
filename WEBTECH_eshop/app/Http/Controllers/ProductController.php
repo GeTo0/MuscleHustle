@@ -6,6 +6,7 @@ use App\Models\Product; // Import the Product model
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -127,6 +128,23 @@ public function delete_product($productName)
         }
     }
 
+    public function getAllCategories(): JsonResponse
+    {
+        try {
+            // Fetch all unique category values from the database
+            $categories = DB::table('products')->distinct()->pluck('category');
     
+            // Check if categories exist
+            if ($categories->isEmpty()) {
+                return response()->json(['message' => 'No categories found'], 404);
+            }
+    
+            // Return categories data in JSON format
+            return response()->json($categories);
+        } catch (\Exception $e) {
+            // Handle any exceptions
+            return response()->json(['error' => 'Failed to fetch categories: ' . $e->getMessage()], 500);
+        }
+    }
 }
 
