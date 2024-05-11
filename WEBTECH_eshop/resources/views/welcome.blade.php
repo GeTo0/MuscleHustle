@@ -96,21 +96,14 @@
             @endguest
         </div>
     </header>
-
 <main>
     <h1 class="title">MUSCLE HUSTLE</h1>
-    
-    @if(Auth::user() && Auth::user()->permissions === 'ADMIN')
-        <a href="{{ route('admin_page') }}" class="catalog-link">
-    @else
         <a href="{{ route('catalog') }}" class="catalog-link">
-    @endif
         <div class="catalog-box">
             <h2 class="text-xl font-semibold text-black">CATALOG</h2>
         </div>
     </a>
 </main>
-
 <footer>
     <p>Created by: Sebastián Lener, Dominik Zaťovič</p>
 </footer>

@@ -13,7 +13,7 @@
 <body>
   <div class="topnav">
     <a href="{{ route('homepage') }}"><img src="{{ asset('icons/account_icon.png') }}" alt="Icon 1"></a>
-    <a href="{{ route('admin_page') }}"><img src="{{ asset('icons/home_icon.png') }}" alt="Icon 2"></a>
+    <a href="{{ route('catalog') }}"><img src="{{ asset('icons/home_icon.png') }}" alt="Icon 2"></a>
   </div>
 
   <div class="catalog">
@@ -63,7 +63,7 @@
         <input checked="" value="Price" name="filterOption" id="pr" type="radio" class="input" />
         <label for="pr" class="label">Price</label>
         <input value="Alphabet" name="filterOption" id="alpha" type="radio" class="input" />
-        <label for="alpha" class="label">Aplhabet</label>
+        <label for="alpha" class="label">Alphabet</label>
       </div>      
       <div id="slider-container">
         <label for="price-slider">Price Interval:</label>

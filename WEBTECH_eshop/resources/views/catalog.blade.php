@@ -16,6 +16,7 @@
     <a href="{{ route('catalog') }}"><img src="{{ asset('icons/home_icon.png') }}" alt="Icon 2"></a>
     <a href="{{ route('shopping_cart') }}"><img src="{{ asset('icons/kosik.png') }}" alt="Icon 3"></a>
     <span id="cartCounter"></span>
+
   </div>
 
   <div class="catalog">
@@ -59,6 +60,9 @@
     <div class="products"></div>
 
     <div class="navigation">
+      @if(Auth::user() && Auth::user()->permissions === 'ADMIN')
+    <a href="{{ route('admin_page') }}" class="edit-catalog">EDIT CATALOG</a>
+    @endif
       <span class="nav-button" onclick="showPreviousProducts()">&#10094;</span>
       <span id="page-counter"></span>
       <span class="nav-button" onclick="showNextProducts()">&#10095;</span>
@@ -66,5 +70,6 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
   <script src="{{ asset('js/catalog.js') }}"></script>
+  
 </body>
 </html>
