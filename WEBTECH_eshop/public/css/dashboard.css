@@ -1,0 +1,72 @@
+/* Custom styles for the dashboard */
+
+/* Navbar */
+nav {
+    background-color: #ffffff; /* White background */
+    border-bottom: 1px solid #d1d5db; /* Light gray border */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+nav .logo {
+    margin-right: auto;
+}
+
+nav .user-profile {
+    margin-left: auto;
+}
+
+nav .user-profile button {
+    color: #6b7280; /* Gray text color */
+}
+
+nav .user-profile button:hover {
+    color: #4b5563; /* Darker gray on hover */
+}
+
+/* Page Heading */
+.header {
+    background-color: #f3f4f6; /* Light gray background */
+    border-bottom: 1px solid #d1d5db; /* Light gray border */
+    padding: 1rem;
+    text-align: center; /* Center text */
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+    background-color: #ffffff; /* White background */
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+    width: 80%; /* Set width */
+    margin: 2rem auto; /* Center horizontally */
+}
+
+/* Additional Styling */
+a {
+    color: #1f2937; /* Dark text color for links */
+}
+
+a:hover {
+    color: #3e4c59; /* Darker text color on hover */
+}
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.space-y-6 > * {
+    margin-bottom: 3rem;
+}
+
+/* Increase text size */
+.text-lg {
+    font-size: 1.25rem;
+}
+.text-center {
+    margin-bottom: 15rem;
+}

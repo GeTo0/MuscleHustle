@@ -1,19 +1,28 @@
-// function addToCart() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const productName = urlParams.get('product');
-//     const price = parseFloat(urlParams.get('price')); // Parse price as a float
-//     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-//     cart.push({ name: productName, price: price }); // Include price in the cart item
-//     localStorage.setItem('cart', JSON.stringify(cart));
-//     updateCartCounter();
-// }
+function fetchCartItems() {
+    return fetch('/cart/items') // Adjust the URL endpoint based on your Laravel routes
+        .then(response => response.json())
+        .then(data => {
+            // Assign fetched cart items to cartData
+            cartData = data;
+            // Update cart counter after fetching cart items
+            updateCartCounter();
+        })
+        .catch(error => {
+            console.error('Error fetching cart items:', error);
+        });
+}
 
 function updateCartCounter() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalQuantity = 0; // Initialize total quantity counter
+    // Iterate through the cartData array and sum up the quantities of all products
+    cartData.forEach(item => {
+        totalQuantity += item.quantity;
+    });
+    // Update the cartCounter with the total quantity
     let cartCounter = document.getElementById('cartCounter');
-    cartCounter.textContent = cart.length; // Update counter with the number of items in the cart
+    cartCounter.textContent = totalQuantity; // Update counter with the total quantity of items in the fetched cartItems
 }
 
 window.onload = function () {
-    updateCartCounter();
+    fetchCartItems(); // Fetch cart items when the window loads
 };

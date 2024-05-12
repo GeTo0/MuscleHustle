@@ -15,8 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->string('category');
             $table->bigInteger('price');
-            $table->bigInteger('sale_%')->nullable;
+            $table->bigInteger('sale_percentage')->nullable;
             $table->bigInteger('availability');
             $table->string('image_path')->nullable(); // Store the path to the image file
             $table->timestamps();
